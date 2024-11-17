@@ -1,18 +1,35 @@
-import { Component } from "@angular/core";
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { AlbumService } from "./album.service";
+import { Album } from "./album";
 
 @Component({
   selector: "app-sample",
-  standalone: true,
-  imports: [],
+  imports: [CommonModule],
   template: `
     <ul class="list-group m-3">
-      <li class="list-group-item">An item</li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-      <li class="list-group-item">A fourth item</li>
-      <li class="list-group-item">And a fifth one</li>
+      @for (album of albums(); track album.id) {
+        <li class="list-group-item">{{ album.title }}</li>
+      } @empty {
+        <li class="list-group-item">No users found ...</li>
+      }
     </ul>
   `,
   styles: ``,
 })
-export class SampleComponent {}
+export class SampleComponent implements OnInit {
+  albums: WritableSignal<Album[]> = signal([]);
+  album_service: AlbumService = inject(AlbumService);
+
+  ngOnInit(): void {
+    this.album_service
+      .getAlbums()
+      .subscribe((album: Album[]) => this.albums.set(album));
+  }
+}
