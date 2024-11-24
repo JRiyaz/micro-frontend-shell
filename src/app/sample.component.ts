@@ -13,11 +13,11 @@ import { Album } from "./album";
   selector: "app-sample",
   imports: [CommonModule],
   template: `
-    <ul class="list-group m-3">
+    <ul class="list-disc m-36">
       @for (album of albums(); track album.id) {
-        <li class="list-group-item">{{ album.title }}</li>
+        <li>{{ album.title }}</li>
       } @empty {
-        <li class="list-group-item">No users found ...</li>
+        <li>No users found ...</li>
       }
     </ul>
   `,
