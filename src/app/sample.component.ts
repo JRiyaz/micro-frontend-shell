@@ -1,17 +1,12 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { AlbumService } from "./album.service";
-import { Album } from "./album";
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AlbumService } from './album.service';
+import { Album } from './album';
 
 @Component({
-  selector: "app-sample",
+  selector: 'app-sample',
   imports: [CommonModule],
+  standalone: true,
   template: `
     <ul class="list-disc m-36">
       @for (album of albums(); track album.id) {
@@ -25,7 +20,8 @@ import { Album } from "./album";
 })
 export class SampleComponent implements OnInit {
   albums: WritableSignal<Album[]> = signal([]);
-  album_service: AlbumService = inject(AlbumService);
+
+  constructor(private album_service: AlbumService) {}
 
   ngOnInit(): void {
     this.album_service

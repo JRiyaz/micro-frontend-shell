@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { SharedUiService } from 'shared-ui';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, RouterLink],
   template: `
     <nav class="bg-gray-800">
@@ -300,7 +301,8 @@ import { SharedUiService } from 'shared-ui';
   styles: [],
 })
 export class AppComponent {
-  constructor(private uisharedService: SharedUiService) {}
+  uisharedService: SharedUiService = inject(SharedUiService);
+
   title = 'shell';
 
   ngOnInit() {
