@@ -238,7 +238,7 @@ import { SharedUiService } from 'shared-ui';
               >
                 <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
                 <a
-                  href="#"
+                  routerLink="/login"
                   class="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabindex="-1"

@@ -4,7 +4,7 @@ COPY package.json pnpm-lock.yaml tailwind.config.js submodule-husky-hook-path.sh
 RUN npm install -g pnpm@8.15.5 @angular/cli@18.2.12
 RUN pnpm install
 COPY . .
-RUN ng build --project=shared-ui && ng build --base-href=/shell/ --project=shell
+RUN ng build --project=shared-ui && ng build --base-href=/shell/ --configuration production --project=shell
 
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
