@@ -7,9 +7,7 @@ COPY . .
 RUN ng build --project=shared-ui && ng build --base-href=/shell/ --configuration production --project=shell
 
 FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
+WORKDIR /usr/share/nginx/shell
 COPY --from=builder /app/dist/shell/browser ./
-# RUN cp -r -n ./shell/* ./
-# COPY ./projects/shell/default.conf /etc/nginx/conf.d/default.conf
 COPY ./projects/shell/nginx.conf /etc/nginx/nginx.conf
 CMD nginx -g "daemon off;"
