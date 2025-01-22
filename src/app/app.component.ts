@@ -4,7 +4,6 @@ import { SharedUiService } from 'shared-ui';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet],
   template: ` <router-outlet /> `,
   styles: [],

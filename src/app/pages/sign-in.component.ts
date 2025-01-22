@@ -10,7 +10,6 @@ import {
 
 @Component({
   selector: 'app-signin',
-  standalone: true,
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   template: `
     <div

@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'side-nav',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     <div

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-about',
-  standalone: true,
   imports: [CommonModule],
   template: `
     <div class="bg-white shadow rounded-lg p-6">

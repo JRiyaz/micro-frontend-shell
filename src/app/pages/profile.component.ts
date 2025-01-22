@@ -9,7 +9,6 @@ import {
 
 @Component({
   selector: 'app-profile',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div class="bg-white shadow rounded-lg p-6">

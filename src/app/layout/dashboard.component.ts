@@ -5,7 +5,6 @@ import { AppStore } from 'shared-ui';
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,
   imports: [RouterOutlet, RouterLink, CommonModule],
   template: `
     <nav class="bg-gray-800">

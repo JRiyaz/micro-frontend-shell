@@ -11,7 +11,6 @@ interface Order {
 
 @Component({
   selector: 'app-orders',
-  standalone: true,
   imports: [CommonModule],
   template: `
     <div class="space-y-6">

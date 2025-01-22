@@ -5,7 +5,6 @@ import { BreadcrumbComponent } from './breadcrumb.component';
 
 @Component({
   selector: 'top-nav',
-  standalone: true,
   imports: [CommonModule, RouterModule, BreadcrumbComponent],
   template: `
     <header class="fixed top-0 left-0 right-0 z-40 bg-white shadow-sm">

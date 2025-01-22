@@ -6,7 +6,6 @@ import { SideNavComponent } from './side-nave.component';
 
 @Component({
   selector: 'app-main-layout',
-  standalone: true,
   imports: [CommonModule, RouterModule, TopNavComponent, SideNavComponent],
   template: `
     <div class="min-h-screen bg-gray-100">

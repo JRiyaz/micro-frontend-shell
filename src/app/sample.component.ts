@@ -6,7 +6,6 @@ import { Album } from './album';
 @Component({
   selector: 'app-sample',
   imports: [CommonModule],
-  standalone: true,
   template: `
     <ul class="list-disc m-36">
       @for (album of albums(); track album.id) {

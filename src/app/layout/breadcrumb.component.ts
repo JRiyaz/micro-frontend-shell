@@ -11,7 +11,6 @@ interface BreadcrumbItem {
 
 @Component({
   selector: 'breadcrumb',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
     <nav>
