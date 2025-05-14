@@ -6,7 +6,7 @@ RUN pnpm install
 COPY . .
 RUN ng build --project=shared-ui && ng build --base-href=/shell/ --configuration production --project=shell
 
-FROM nginx:alpine
+FROM nginx:stable-alpine3.21
 WORKDIR /usr/share/nginx/shell
 COPY --from=builder /app/dist/shell/browser ./
 COPY ./projects/shell/nginx.conf /etc/nginx/nginx.conf
