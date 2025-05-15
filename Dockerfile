@@ -7,7 +7,16 @@ COPY . .
 RUN ng build --project=shared-ui && ng build --configuration production --project=shell
 
 FROM nginx:stable-alpine3.21
-WORKDIR /usr/share/nginx/shell
+
+# The newly generated json files will be kept under WORKING_PATH env
+ENV WORKING_PATH=/usr/share/nginx/shell
+WORKDIR $WORKING_PATH
+
 COPY --from=builder /app/dist/shell/browser ./
 COPY ./projects/shell/nginx.conf /etc/nginx/nginx.conf
-CMD nginx -g "daemon off;"
+
+COPY ./scripts/*.sh /app/scripts/
+RUN chmod +x /app/scripts/*.sh
+
+# Run the shell script using sh
+CMD ["sh", "/app/scripts/environment.sh"]

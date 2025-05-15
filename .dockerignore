@@ -1,2 +1,4 @@
 /node_modules
 /apache
+/public/env.json
+/public/env.prod.json
