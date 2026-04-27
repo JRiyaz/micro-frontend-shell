@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 
-import { httpInterceptorProviders } from 'shared-ui';
+import { httpInterceptorProviders } from 'ui-shared';
 
 import { routes } from './app.routes';
 
