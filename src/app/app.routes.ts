@@ -1,25 +1,29 @@
-import { Routes } from "@angular/router";
-import { loadRemoteModule } from "@angular-architects/native-federation";
-import { SampleComponent } from "./sample.component";
+import { Routes } from '@angular/router';
+import { loadRemoteModule } from '@angular-architects/native-federation';
+import { LandingComponent, DashboardLayoutComponent } from 'ui-shared';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
-    path: "sample",
-    title: "Sample",
-    component: SampleComponent,
+    path: '',
+    title: 'Inventory - Smart Inventory Management',
+    component: LandingComponent,
   },
   {
-    path: "user-sample",
-    title: "Sample Component",
-    loadComponent: () =>
-      loadRemoteModule("user-app", "./Sample-Component").then(
-        (m) => m.SampleComponent,
-      ),
+    path: 'dashboard',
+    component: DashboardLayoutComponent,
+    children: [
+      {
+        path: '',
+        title: 'Dashboard - Inventory',
+        component: DashboardComponent,
+      },
+    ],
   },
   {
-    path: "user-app",
-    title: "User App",
+    path: 'user',
+    title: 'User Account',
     loadChildren: () =>
-      loadRemoteModule("user-app", "./USER-ROUTES").then((m) => m.USER_ROUTES),
+      loadRemoteModule('user-app', './USER-ROUTES').then((m) => m.USER_ROUTES),
   },
 ];
