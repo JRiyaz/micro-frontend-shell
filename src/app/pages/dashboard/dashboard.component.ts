@@ -71,9 +71,9 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
               class="px-2 py-0.5 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.06] rounded text-[10px] font-bold text-slate-500 dark:text-slate-400"
               >{{ col.items.length }}</span
             >
-            <!-- Drop Indicator Line (Iphone style) -->
+            <!-- Drop Indicator Line -->
             <div
-              class="drop-indicator absolute bottom-[-1px] left-1/2 -translate-x-1/2 w-16 h-[3px] rounded-full bg-transparent transition-colors duration-200"
+              class="drop-indicator absolute bottom-[-1px] left-0 w-full h-[2px] bg-transparent transition-colors duration-200"
             ></div>
           </div>
           <!-- Droppable area min-height so it's always droppable -->
