@@ -22,7 +22,7 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
           </p>
         </div>
         <button
-          class="px-5 py-2.5 bg-[#6d74ff] text-white rounded-xl font-bold text-sm hover:bg-[#5a61e6] transition-all"
+          class="px-5 py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:bg-primary-hover transition-all"
         >
           + Add Product
         </button>
@@ -83,7 +83,7 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
             <div
               *ngFor="let item of col.items"
               [uiDraggable]="{ item: item, sourceColIndex: colIndex }"
-              class="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none backdrop-blur-md p-4 rounded-xl hover:border-[#6d74ff]/50 dark:hover:border-[#6d74ff]/30 transition-colors cursor-grab active:cursor-grabbing"
+              class="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none backdrop-blur-md p-4 rounded-xl hover:border-primary/50 dark:hover:border-primary/30 transition-colors cursor-grab active:cursor-grabbing"
             >
               <div class="flex justify-between items-start mb-2">
                 <span
@@ -111,7 +111,7 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
                   <img
                     *ngFor="let a of item.avatars"
                     [src]="a"
-                    class="w-5 h-5 rounded-full border border-white dark:border-[#0a0b1e]"
+                    class="w-5 h-5 rounded-full border border-white dark:border-dark-base"
                   />
                 </div>
                 <span class="text-[10px] text-slate-500 dark:text-slate-400">{{
@@ -154,8 +154,8 @@ export class DashboardComponent {
       label: 'Orders Pending',
       value: '142',
       change: '↑ 8 new today',
-      borderColor: 'border-l-[#6d74ff]',
-      changeColor: 'text-[#6d74ff]',
+      borderColor: 'border-l-primary',
+      changeColor: 'text-primary',
     },
     {
       label: 'Revenue',
@@ -210,7 +210,7 @@ export class DashboardComponent {
     },
     {
       title: 'In Progress',
-      color: 'text-[#6d74ff]',
+      color: 'text-primary',
       items: [
         {
           id: 'INV-195',
