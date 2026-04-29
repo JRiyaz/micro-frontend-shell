@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DraggableDirective, DroppableDirective } from 'ui-shared';
+import {
+  DraggableDirective,
+  DroppableDirective,
+  NotificationService,
+} from 'ui-shared';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,11 +25,19 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
             Track your inventory and upcoming orders.
           </p>
         </div>
-        <button
-          class="px-5 py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:bg-primary-hover transition-all"
-        >
-          + Add Product
-        </button>
+        <div class="flex gap-3">
+          <button
+            (click)="testNotify()"
+            class="px-5 py-2.5 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/10 rounded-xl font-bold text-sm hover:bg-slate-200 dark:hover:bg-white/10 transition-all"
+          >
+            Test Notification
+          </button>
+          <button
+            class="px-5 py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:bg-primary-hover transition-all"
+          >
+            + Add Product
+          </button>
+        </div>
       </div>
 
       <!-- Stats Grid -->
@@ -135,6 +147,18 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
   ],
 })
 export class DashboardComponent {
+  notificationService = inject(NotificationService);
+
+  testNotify() {
+    const types: any[] = ['success', 'error', 'info', 'warning'];
+    const type = types[Math.floor(Math.random() * types.length)];
+    this.notificationService.notify(
+      type,
+      `${type.charAt(0).toUpperCase() + type.slice(1)} Title`,
+      `This is a sample ${type} message for testing the dynamic notification system.`,
+    );
+  }
+
   stats = [
     {
       label: 'Total Products',
