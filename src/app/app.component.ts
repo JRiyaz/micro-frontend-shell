@@ -2,6 +2,7 @@ import {
   NotificationToastComponent,
   NotificationSidenavComponent,
   NotificationService,
+  LoadingComponent,
 } from 'ui-shared';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
@@ -15,11 +16,13 @@ import { RouterOutlet } from '@angular/router';
     CommonModule,
     NotificationToastComponent,
     NotificationSidenavComponent,
+    LoadingComponent,
   ],
   template: `
     <router-outlet />
 
-    <!-- Global Notifications Layer -->
+    <!-- Global Layers -->
+    <ui-loading />
     <ui-notification-toast />
     <ui-notification-sidenav
       *ngIf="notificationService.sidenavOpen()"
