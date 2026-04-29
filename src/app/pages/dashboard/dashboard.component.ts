@@ -7,7 +7,7 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
   standalone: true,
   imports: [CommonModule, DraggableDirective, DroppableDirective],
   template: `
-    <div class="p-6 sm:p-8 max-w-6xl mx-auto">
+    <div class="p-6 sm:p-8 max-w-6xl mx-auto animate-fade-in">
       <div
         class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4"
       >
@@ -21,7 +21,15 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
             Track your inventory and upcoming orders.
           </p>
         </div>
-        <div></div>
+        <div
+          class="flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full"
+        >
+          <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+          <span
+            class="text-[10px] font-black uppercase tracking-widest text-primary"
+            >Live Updates Active</span
+          >
+        </div>
       </div>
 
       <!-- Stats Grid -->
@@ -29,8 +37,8 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10"
       >
         <div
-          *ngFor="let stat of stats"
-          class="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none backdrop-blur-md p-5 rounded-2xl"
+          *ngFor="let stat of stats; let i = index"
+          class="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none backdrop-blur-md p-5 rounded-2xl group hover:border-primary/30 transition-all hover:scale-[1.02] cursor-default"
           [class]="'border-l-4 ' + stat.borderColor"
         >
           <p
@@ -38,81 +46,104 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
           >
             {{ stat.label }}
           </p>
-          <h3 class="text-2xl font-black text-slate-900 dark:text-white">
-            {{ stat.value }}
-          </h3>
-          <p class="text-xs mt-1" [class]="stat.changeColor">
-            {{ stat.change }}
-          </p>
+          <div class="flex items-end justify-between">
+            <h3 class="text-2xl font-black text-slate-900 dark:text-white">
+              {{ stat.value }}
+            </h3>
+            <p
+              class="text-[10px] font-black uppercase"
+              [class]="stat.changeColor"
+            >
+              {{ stat.change }}
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Kanban Columns -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div
           *ngFor="let col of columns; let colIndex = index"
-          class="space-y-3 flex flex-col rounded-xl"
+          class="flex flex-col rounded-2xl bg-slate-50/50 dark:bg-white/[0.01] p-4 min-h-[400px] border border-transparent hover:border-slate-200 dark:hover:border-white/[0.05] transition-all"
           uiDroppable
           (dropped)="onItemDrop($event, colIndex)"
         >
           <div
-            class="flex items-center justify-between mb-3 flex-shrink-0 relative pb-3 border-b border-slate-200 dark:border-white/[0.06]"
+            class="flex items-center justify-between mb-6 flex-shrink-0 relative pb-4 border-b border-slate-200 dark:border-white/[0.08]"
           >
-            <span
-              class="text-xs font-bold uppercase tracking-widest"
-              [class]="col.color"
-              >{{ col.title }}</span
-            >
-            <span
-              class="px-2 py-0.5 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.06] rounded text-[10px] font-bold text-slate-500 dark:text-slate-400"
-              >{{ col.items.length }}</span
-            >
+            <div class="flex items-center gap-2">
+              <span
+                class="text-xs font-black uppercase tracking-[0.2em]"
+                [class]="col.color"
+                >{{ col.title }}</span
+              >
+              <span
+                class="px-2 py-0.5 bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] rounded-lg text-[9px] font-black text-slate-500 dark:text-slate-400"
+                >{{ col.items.length }}</span
+              >
+            </div>
             <!-- Drop Indicator Line -->
             <div
-              class="drop-indicator absolute bottom-[-1px] left-0 w-full h-[2px] bg-transparent transition-colors duration-200"
+              class="drop-indicator absolute bottom-[-1px] left-0 w-full h-[2px] bg-transparent transition-all duration-300"
             ></div>
           </div>
-          <!-- Droppable area min-height so it's always droppable -->
-          <div
-            class="flex-1 space-y-3 rounded-xl min-h-[200px] transition-colors p-1 -m-1"
-          >
+          <!-- Droppable area -->
+          <div class="flex-1 space-y-4">
             <div
               *ngFor="let item of col.items"
               [uiDraggable]="{ item: item, sourceColIndex: colIndex }"
-              class="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none backdrop-blur-md p-4 rounded-xl hover:border-primary/50 dark:hover:border-primary/30 transition-colors cursor-grab active:cursor-grabbing"
+              class="bg-white dark:bg-dark-elevated border border-slate-200 dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:border-primary/40 p-4 rounded-2xl transition-all cursor-grab active:cursor-grabbing group"
             >
-              <div class="flex justify-between items-start mb-2">
+              <div class="flex justify-between items-start mb-3">
                 <span
-                  class="px-2 py-0.5 rounded text-[10px] font-bold uppercase"
+                  class="px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider"
                   [class]="item.priorityClass"
                   >{{ item.priority }}</span
                 >
                 <span
-                  class="text-[10px] text-slate-500 dark:text-slate-400 font-mono"
+                  class="text-[9px] text-slate-400 dark:text-slate-500 font-black uppercase tracking-widest group-hover:text-primary transition-colors"
                   >{{ item.id }}</span
                 >
               </div>
-              <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-1">
+              <h4
+                class="font-bold text-sm text-slate-900 dark:text-white mb-2 leading-snug"
+              >
                 {{ item.title }}
               </h4>
               <p
-                class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2"
+                class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed mb-4"
               >
                 {{ item.description }}
               </p>
               <div
-                class="flex justify-between items-center pt-3 mt-3 border-t border-slate-200 dark:border-white/[0.06]"
+                class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-white/[0.04]"
               >
-                <div class="flex -space-x-1.5">
-                  <img
-                    *ngFor="let a of item.avatars"
-                    [src]="a"
-                    class="w-5 h-5 rounded-full border border-white dark:border-dark-base"
-                  />
+                <div class="flex -space-x-2">
+                  <div *ngFor="let a of item.avatars" class="relative">
+                    <img
+                      [src]="a"
+                      class="w-6 h-6 rounded-full border-2 border-white dark:border-dark-elevated shadow-sm"
+                    />
+                  </div>
                 </div>
-                <span class="text-[10px] text-slate-500 dark:text-slate-400">{{
-                  item.due
-                }}</span>
+                <div
+                  class="flex items-center gap-1.5 text-slate-400 dark:text-slate-500"
+                >
+                  <svg
+                    class="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                  <span class="text-[10px] font-bold">{{ item.due }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -122,10 +153,9 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
   `,
   styles: [
     `
-      /* Target the drop-indicator inside a column that is being dragged over */
       :host ::ng-deep .ui-drag-over .drop-indicator {
-        background-color: #22c55e; /* Green color to show valid drop */
-        box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+        background-color: var(--theme-primary);
+        box-shadow: 0 0 12px var(--theme-primary);
       }
     `,
   ],
