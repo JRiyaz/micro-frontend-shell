@@ -21,6 +21,14 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'inventory',
+    component: DashboardLayoutComponent,
+    loadChildren: () =>
+      loadRemoteModule('inventory-hub', './INVENTORY_ROUTES').then(
+        (m) => m.INVENTORY_ROUTES,
+      ),
+  },
+  {
     path: 'user',
     title: 'User Account',
     loadChildren: () =>

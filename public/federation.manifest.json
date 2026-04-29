@@ -1,3 +1,4 @@
 {
-  "user-service": "http://localhost:4210/remoteEntry.json"
+  "user-service": "http://localhost:4210/remoteEntry.json",
+  "inventory-hub": "http://localhost:4220/remoteEntry.json"
 }
