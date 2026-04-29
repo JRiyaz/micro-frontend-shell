@@ -52,6 +52,16 @@
     --theme-dark-elevated: #334155;
     --theme-dark-card: #475569;
   }
+
+  :root[data-theme="gold"] {
+    /* Gold Theme (Warm Luxury Dark) */
+    --theme-primary: #d4af37;
+    --theme-primary-hover: #f1c40f;
+    --theme-dark-base: #14120a;
+    --theme-dark-surface: #1c190e;
+    --theme-dark-elevated: #282414;
+    --theme-dark-card: #35301b;
+  }
 }
 
 /* Global Reusable Scrollbar utility */
