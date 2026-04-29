@@ -4,20 +4,20 @@ import {
   OnInit,
   signal,
   WritableSignal,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { AlbumService } from "./album.service";
-import { Album } from "./album";
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AlbumService } from './album.service';
+import { Album } from './album';
 
 @Component({
-  selector: "app-sample",
+  selector: 'app-sample',
   imports: [CommonModule],
   template: `
     <ul class="list-disc m-36">
       @for (album of albums(); track album.id) {
         <li>{{ album.title }}</li>
       } @empty {
-        <li>No users found ...</li>
+        <li>No albums found ...</li>
       }
     </ul>
   `,

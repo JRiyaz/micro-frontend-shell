@@ -24,6 +24,8 @@ export const routes: Routes = [
     path: 'user',
     title: 'User Account',
     loadChildren: () =>
-      loadRemoteModule('user-app', './USER-ROUTES').then((m) => m.USER_ROUTES),
+      loadRemoteModule('user-service', './USER-ROUTES').then(
+        (m) => m.USER_ROUTES,
+      ),
   },
 ];
