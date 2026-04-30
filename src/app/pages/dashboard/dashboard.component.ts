@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { DraggableDirective, DroppableDirective } from 'ui-shared';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, DraggableDirective, DroppableDirective],
+  imports: [CommonModule, RouterModule, DraggableDirective, DroppableDirective],
   template: `
     <div class="p-4 sm:p-5 max-w-6xl mx-auto animate-fade-in">
       <div
@@ -38,12 +39,10 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
       >
         @for (stat of stats; track stat.label; let i = $index) {
           <div
-            class="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none backdrop-blur-md p-3.5 rounded-xl group hover:border-primary/30 transition-all hover:scale-[1.02] cursor-default"
+            class="card-premium p-3.5 group hover:border-primary/30 transition-all hover:scale-[1.02] cursor-default"
             [class]="'border-l-4 ' + stat.borderColor"
           >
-            <p
-              class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1"
-            >
+            <p class="label-premium mb-1">
               {{ stat.label }}
             </p>
             <div class="flex items-end justify-between">
@@ -93,7 +92,7 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
               @for (item of col.items; track item.id) {
                 <div
                   [uiDraggable]="{ item: item, sourceColIndex: colIndex }"
-                  class="bg-white dark:bg-dark-elevated border border-slate-200 dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:border-primary/40 p-3 rounded-xl transition-all cursor-grab active:cursor-grabbing group"
+                  class="card-premium p-3 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/40 transition-all cursor-grab active:cursor-grabbing group active:scale-[0.98]"
                 >
                   <div class="flex justify-between items-start mb-2">
                     <span
