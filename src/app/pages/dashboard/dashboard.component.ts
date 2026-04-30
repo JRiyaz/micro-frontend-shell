@@ -7,13 +7,13 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
   standalone: true,
   imports: [CommonModule, DraggableDirective, DroppableDirective],
   template: `
-    <div class="p-6 sm:p-8 max-w-6xl mx-auto animate-fade-in">
+    <div class="p-4 sm:p-5 max-w-6xl mx-auto animate-fade-in">
       <div
-        class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4"
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-5 gap-3"
       >
         <div>
           <h2
-            class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white"
+            class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white"
           >
             Dashboard
           </h2>
@@ -34,11 +34,11 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
 
       <!-- Stats Grid -->
       <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6"
       >
         <div
           *ngFor="let stat of stats; let i = index"
-          class="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none backdrop-blur-md p-5 rounded-2xl group hover:border-primary/30 transition-all hover:scale-[1.02] cursor-default"
+          class="bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] shadow-sm dark:shadow-none backdrop-blur-md p-3.5 rounded-xl group hover:border-primary/30 transition-all hover:scale-[1.02] cursor-default"
           [class]="'border-l-4 ' + stat.borderColor"
         >
           <p
@@ -47,7 +47,7 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
             {{ stat.label }}
           </p>
           <div class="flex items-end justify-between">
-            <h3 class="text-2xl font-black text-slate-900 dark:text-white">
+            <h3 class="text-xl font-black text-slate-900 dark:text-white">
               {{ stat.value }}
             </h3>
             <p
@@ -61,15 +61,15 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
       </div>
 
       <!-- Kanban Columns -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div
           *ngFor="let col of columns; let colIndex = index"
-          class="flex flex-col rounded-2xl bg-slate-50/50 dark:bg-white/[0.01] p-4 min-h-[400px] border border-transparent hover:border-slate-200 dark:hover:border-white/[0.05] transition-all"
+          class="flex flex-col rounded-xl bg-slate-50/50 dark:bg-white/[0.01] p-3 min-h-[350px] border border-transparent hover:border-slate-200 dark:hover:border-white/[0.05] transition-all"
           uiDroppable
           (dropped)="onItemDrop($event, colIndex)"
         >
           <div
-            class="flex items-center justify-between mb-6 flex-shrink-0 relative pb-4 border-b border-slate-200 dark:border-white/[0.08]"
+            class="flex items-center justify-between mb-4 flex-shrink-0 relative pb-3 border-b border-slate-200 dark:border-white/[0.08]"
           >
             <div class="flex items-center gap-2">
               <span
@@ -88,13 +88,13 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
             ></div>
           </div>
           <!-- Droppable area -->
-          <div class="flex-1 space-y-4">
+          <div class="flex-1 space-y-3">
             <div
               *ngFor="let item of col.items"
               [uiDraggable]="{ item: item, sourceColIndex: colIndex }"
-              class="bg-white dark:bg-dark-elevated border border-slate-200 dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:border-primary/40 p-4 rounded-2xl transition-all cursor-grab active:cursor-grabbing group"
+              class="bg-white dark:bg-dark-elevated border border-slate-200 dark:border-white/[0.08] shadow-sm hover:shadow-xl hover:shadow-primary/5 hover:border-primary/40 p-3 rounded-xl transition-all cursor-grab active:cursor-grabbing group"
             >
-              <div class="flex justify-between items-start mb-3">
+              <div class="flex justify-between items-start mb-2">
                 <span
                   class="px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider"
                   [class]="item.priorityClass"
@@ -111,12 +111,12 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
                 {{ item.title }}
               </h4>
               <p
-                class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed mb-4"
+                class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed mb-3"
               >
                 {{ item.description }}
               </p>
               <div
-                class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-white/[0.04]"
+                class="flex justify-between items-center pt-3 border-t border-slate-100 dark:border-white/[0.04]"
               >
                 <div class="flex -space-x-2">
                   <div *ngFor="let a of item.avatars" class="relative">
