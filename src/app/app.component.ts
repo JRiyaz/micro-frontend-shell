@@ -24,10 +24,11 @@ import { RouterOutlet } from '@angular/router';
     <!-- Global Layers -->
     <ui-loading />
     <ui-notification-toast />
-    <ui-notification-sidenav
-      *ngIf="notificationService.sidenavOpen()"
-      (close)="notificationService.sidenavOpen.set(false)"
-    />
+    @if (notificationService.sidenavOpen()) {
+      <ui-notification-sidenav
+        (close)="notificationService.sidenavOpen.set(false)"
+      />
+    }
   `,
   styles: [],
 })
