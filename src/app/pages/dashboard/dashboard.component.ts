@@ -188,11 +188,18 @@ export class DashboardComponent {
       changeColor: 'text-primary',
     },
     {
-      label: 'Revenue',
-      value: '$48.2k',
-      change: '↑ 18% this quarter',
-      borderColor: 'border-l-green-500',
+      label: 'Active Suppliers',
+      value: '124',
+      change: '↑ 4 this week',
+      borderColor: 'border-l-indigo-500',
       changeColor: 'text-green-400',
+    },
+    {
+      label: 'Wh. Capacity',
+      value: '78%',
+      change: 'Optimum range',
+      borderColor: 'border-l-rose-500',
+      changeColor: 'text-rose-400',
     },
   ];
 
