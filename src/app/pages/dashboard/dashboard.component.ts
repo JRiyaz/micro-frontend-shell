@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DraggableDirective, DroppableDirective } from 'ui-shared';
 
@@ -64,7 +64,7 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
         @for (col of columns; track col.title; let colIndex = $index) {
           <div
-            class="flex flex-col rounded-xl bg-slate-50/50 dark:bg-white/[0.01] p-3 min-h-[350px] border border-transparent transition-all"
+            class="flex flex-col rounded-xl p-3 min-h-[350px] border border-transparent transition-all"
             uiDroppable
             (dropped)="onItemDrop($event, colIndex)"
           >
