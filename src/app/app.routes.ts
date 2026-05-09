@@ -21,6 +21,13 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'store',
+    loadChildren: () =>
+      loadRemoteModule('store-service', './STORE_ROUTES').then(
+        (m) => m.STORE_ROUTES,
+      ),
+  },
+  {
     path: 'inventory',
     component: DashboardLayoutComponent,
     loadChildren: () =>
