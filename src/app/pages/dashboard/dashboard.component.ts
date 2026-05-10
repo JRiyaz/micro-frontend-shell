@@ -1,12 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DraggableDirective, DroppableDirective } from 'ui-shared';
+import {
+  DraggableDirective,
+  DroppableDirective,
+  TypewriterComponent,
+} from 'ui-shared';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, DraggableDirective, DroppableDirective],
+  imports: [
+    CommonModule,
+    RouterModule,
+    DraggableDirective,
+    DroppableDirective,
+    TypewriterComponent,
+  ],
   template: `
     <div class="p-4 sm:p-5 max-w-6xl mx-auto animate-fade-in">
       <div
@@ -18,8 +28,20 @@ import { DraggableDirective, DroppableDirective } from 'ui-shared';
           >
             Dashboard
           </h2>
-          <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">
-            Track your inventory and upcoming orders.
+          <p
+            class="text-slate-500 dark:text-slate-400 text-sm mt-1 h-5 flex items-center"
+          >
+            <lib-typewriter
+              [words]="[
+                'Track your global inventory.',
+                'Monitor upcoming orders.',
+                'Optimize supply chain logistics.',
+                'Manage regional warehouses.',
+              ]"
+              [typeSpeed]="60"
+              [deleteSpeed]="30"
+              [delayBetweenWords]="3000"
+            ></lib-typewriter>
           </p>
         </div>
         <div
