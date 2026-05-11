@@ -26,7 +26,7 @@ import {
           <h2
             class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 dark:text-white"
           >
-            Dashboard
+            Inventory Hub
           </h2>
           <p
             class="text-slate-500 dark:text-slate-400 text-sm mt-1 h-5 flex items-center"
