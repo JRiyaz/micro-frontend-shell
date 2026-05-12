@@ -1,13 +1,7 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject, type OnInit, signal, type WritableSignal } from '@angular/core';
+import type { Album } from './album';
 import { AlbumService } from './album.service';
-import { Album } from './album';
 
 @Component({
   selector: 'app-sample',
@@ -28,8 +22,6 @@ export class SampleComponent implements OnInit {
   album_service: AlbumService = inject(AlbumService);
 
   ngOnInit(): void {
-    this.album_service
-      .getAlbums()
-      .subscribe((album: Album[]) => this.albums.set(album));
+    this.album_service.getAlbums().subscribe((album: Album[]) => this.albums.set(album));
   }
 }

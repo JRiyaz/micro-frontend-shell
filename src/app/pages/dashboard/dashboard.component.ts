@@ -1,22 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  DraggableDirective,
-  DroppableDirective,
-  TypewriterComponent,
-} from 'ui-shared';
+import { DraggableDirective, DroppableDirective, TypewriterComponent } from 'ui-shared';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    DraggableDirective,
-    DroppableDirective,
-    TypewriterComponent,
-  ],
+  imports: [CommonModule, RouterModule, DraggableDirective, DroppableDirective, TypewriterComponent],
   template: `
     <div class="p-4 sm:p-5 max-w-6xl mx-auto animate-fade-in">
       <div
@@ -230,9 +220,7 @@ export class DashboardComponent {
     if (sourceColIndex === targetColIndex) return;
 
     // Remove from source
-    this.columns[sourceColIndex].items = this.columns[
-      sourceColIndex
-    ].items.filter((i: any) => i.id !== item.id);
+    this.columns[sourceColIndex].items = this.columns[sourceColIndex].items.filter((i: any) => i.id !== item.id);
 
     // Add to target
     this.columns[targetColIndex].items.push(item);
@@ -249,9 +237,7 @@ export class DashboardComponent {
           description: 'Electronics section running low on 15 SKUs...',
           priority: 'Urgent',
           priorityClass: 'bg-red-500/20 text-red-400',
-          avatars: [
-            'https://ui-avatars.com/api/?name=A&size=20&background=3b429f&color=fff',
-          ],
+          avatars: ['https://ui-avatars.com/api/?name=A&size=20&background=3b429f&color=fff'],
           due: '2 days left',
         },
         {
@@ -260,9 +246,7 @@ export class DashboardComponent {
           description: 'Review Q2 invoices from 3 suppliers...',
           priority: 'Medium',
           priorityClass: 'bg-blue-500/20 text-blue-400',
-          avatars: [
-            'https://ui-avatars.com/api/?name=B&size=20&background=6d74ff&color=fff',
-          ],
+          avatars: ['https://ui-avatars.com/api/?name=B&size=20&background=6d74ff&color=fff'],
           due: '5 days left',
         },
       ],
@@ -295,9 +279,7 @@ export class DashboardComponent {
           description: 'Barcode scanning integration complete...',
           priority: 'Done',
           priorityClass: 'bg-green-500/20 text-green-400',
-          avatars: [
-            'https://ui-avatars.com/api/?name=E&size=20&background=3b429f&color=fff',
-          ],
+          avatars: ['https://ui-avatars.com/api/?name=E&size=20&background=3b429f&color=fff'],
           due: 'Completed',
         },
       ],

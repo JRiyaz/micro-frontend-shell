@@ -1,7 +1,6 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/native-federation';
-import { LandingComponent, DashboardLayoutComponent } from 'ui-shared';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardLayoutComponent } from 'ui-shared';
 
 export const routes: Routes = [
   {
@@ -11,10 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'store',
-    loadChildren: () =>
-      loadRemoteModule('store-service', './STORE_ROUTES').then(
-        (m) => m.STORE_ROUTES,
-      ),
+    loadChildren: () => loadRemoteModule('store-service', './STORE_ROUTES').then((m) => m.STORE_ROUTES),
   },
   {
     path: 'inventory',
@@ -117,17 +113,11 @@ export const routes: Routes = [
         },
       ],
     },
-    loadChildren: () =>
-      loadRemoteModule('inventory-hub', './INVENTORY_ROUTES').then(
-        (m) => m.INVENTORY_ROUTES,
-      ),
+    loadChildren: () => loadRemoteModule('inventory-hub', './INVENTORY_ROUTES').then((m) => m.INVENTORY_ROUTES),
   },
   {
     path: 'user',
     title: 'User Account',
-    loadChildren: () =>
-      loadRemoteModule('user-service', './USER-ROUTES').then(
-        (m) => m.USER_ROUTES,
-      ),
+    loadChildren: () => loadRemoteModule('user-service', './USER-ROUTES').then((m) => m.USER_ROUTES),
   },
 ];

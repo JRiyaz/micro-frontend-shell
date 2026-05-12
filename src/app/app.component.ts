@@ -1,23 +1,17 @@
-import {
-  NotificationToastComponent,
-  NotificationSidenavComponent,
-  NotificationService,
-  LoadingComponent,
-} from 'ui-shared';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {
+  LoadingComponent,
+  NotificationService,
+  NotificationSidenavComponent,
+  NotificationToastComponent,
+} from 'ui-shared';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    CommonModule,
-    NotificationToastComponent,
-    NotificationSidenavComponent,
-    LoadingComponent,
-  ],
+  imports: [RouterOutlet, CommonModule, NotificationToastComponent, NotificationSidenavComponent, LoadingComponent],
   template: `
     <router-outlet />
 
