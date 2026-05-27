@@ -1,6 +1,6 @@
 import type { Routes } from '@angular/router';
 import { loadRemoteModule } from '@angular-architects/native-federation';
-import { DashboardLayoutComponent } from 'ui-shared';
+import { DashboardLayoutComponent, authGuard } from 'ui-shared';
 
 export const routes: Routes = [
   {
@@ -15,6 +15,7 @@ export const routes: Routes = [
   {
     path: 'inventory',
     component: DashboardLayoutComponent,
+    canActivate: [authGuard],
     data: {
       branding: { title: 'Inven', subtitle: 'tory', logoText: 'I' },
       navItems: [

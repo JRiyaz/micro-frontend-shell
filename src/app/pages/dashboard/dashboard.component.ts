@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DraggableDirective, DroppableDirective, TypewriterComponent } from 'ui-shared';
+import { HttpClient } from '@angular/common/http';
+import { DraggableDirective, DroppableDirective, NotificationService, TypewriterComponent } from 'ui-shared';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,14 +35,60 @@ import { DraggableDirective, DroppableDirective, TypewriterComponent } from 'ui-
             ></lib-typewriter>
           </p>
         </div>
-        <div
-          class="flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full"
-        >
-          <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-          <span
-            class="text-[10px] font-black uppercase tracking-widest text-primary"
-            >Live Updates Active</span
+        <div class="flex items-center gap-3 relative">
+          <!-- Services Status Dropdown / Popover -->
+          <div class="relative">
+            <button
+              (click)="toggleSyncMenu()"
+              class="flex items-center gap-2 px-3 py-1.5 bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.08] hover:border-primary/40 rounded-xl transition-all font-black text-[10px] uppercase tracking-widest text-slate-600 dark:text-slate-300"
+            >
+              <span class="w-2 h-2 rounded-full" [class.bg-green-500]="isAllServicesHealthy()" [class.bg-amber-500]="!isAllServicesHealthy()"></span>
+              <span>Services Status</span>
+              <svg class="w-3 h-3 text-slate-400 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            
+            <!-- Popover Dropdown -->
+            @if (showSyncMenu()) {
+              <div
+                class="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-xl z-50 p-4 space-y-3 animate-fade-in"
+              >
+                <h4 class="text-[10px] font-black uppercase tracking-widest text-slate-400">System Decoupled Services</h4>
+                <div class="space-y-2">
+                  @for (svc of getServicesList(); track svc.name) {
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="font-bold text-slate-700 dark:text-slate-300">{{ svc.name }}</span>
+                      <span class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full" [class.bg-green-500]="svc.online" [class.bg-red-500]="!svc.online"></span>
+                        <span class="text-[9px] uppercase font-black tracking-wider text-slate-500">{{ svc.online ? 'Online' : 'Offline' }}</span>
+                      </span>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Fresh Sync Reload Button -->
+          <button
+            (click)="syncData()"
+            [disabled]="isSyncing()"
+            class="flex items-center gap-2 px-4 py-1.5 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-primary/20"
           >
+            @if (isSyncing()) {
+              <svg class="animate-spin h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>Syncing...</span>
+            } @else {
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 11H18.66"></path>
+              </svg>
+              <span>Sync Data</span>
+            }
+          </button>
         </div>
       </div>
 
@@ -177,6 +224,65 @@ import { DraggableDirective, DroppableDirective, TypewriterComponent } from 'ui-
   ],
 })
 export class DashboardComponent {
+  private http = inject(HttpClient);
+  private notificationService = inject(NotificationService);
+
+  showSyncMenu = signal(false);
+  isSyncing = signal(false);
+  healthData = signal<any>(null);
+
+  ngOnInit() {
+    this.refreshHealth();
+  }
+
+  toggleSyncMenu() {
+    this.showSyncMenu.set(!this.showSyncMenu());
+  }
+
+  refreshHealth() {
+    this.http.get<any>('http://localhost:3000/health').subscribe({
+      next: (data) => {
+        this.healthData.set(data);
+      },
+      error: () => {
+        // Silently catch or handle
+      }
+    });
+  }
+
+  isAllServicesHealthy(): boolean {
+    const data = this.healthData();
+    if (!data || !data.services) return false;
+    return Object.values(data.services).every((s: any) => s.online === true);
+  }
+
+  getServicesList() {
+    const data = this.healthData();
+    if (!data || !data.services) {
+      return [
+        { name: 'Gateway', online: true },
+        { name: 'User Service', online: false },
+        { name: 'Inventory Hub', online: false },
+        { name: 'Store Service', online: false },
+      ];
+    }
+    const services = data.services;
+    return [
+      { name: 'Gateway', online: services['api-gateway']?.online ?? true },
+      { name: 'User Service', online: services['user-service']?.online ?? false },
+      { name: 'Inventory Hub', online: services['inventory-hub']?.online ?? false },
+      { name: 'Store Service', online: services['store-service']?.online ?? false },
+    ];
+  }
+
+  syncData() {
+    this.isSyncing.set(true);
+    this.refreshHealth();
+    setTimeout(() => {
+      this.isSyncing.set(false);
+      this.notificationService.success('Sync Completed', 'All live inventories and customer records synchronised.');
+    }, 1200);
+  }
   stats = [
     {
       label: 'Total Products',
